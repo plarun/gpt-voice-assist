@@ -27,11 +27,8 @@ class Speech extends Component {
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
-    // when the user click/tap on browser, start listening
-    document.body.onclick = () => {
-      recognition.start();
-      console.log("Listening...");
-    };
+    // recognize voice input
+    recognition.start();
 
     // voice recognition result event, it is triggered when the
     // transacript result is generated.
