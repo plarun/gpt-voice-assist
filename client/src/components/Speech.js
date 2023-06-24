@@ -4,24 +4,22 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
-const url = "https://gpt-voice-assist.onrender.com";
+// backend hostname
+const hostname = "https://gpt-voice-assist.onrender.com";
 
 class Speech extends Component {
   constructor() {
     super();
-    this.state = {
-      transcript: "",
-    };
-
     this.startListen = this.startListen.bind(this);
   }
 
   startListen() {
     // speech recognition on browser
-    var SpeechRecognition = window.webkitSpeechRecognition;
+    var speechRecognition =
+      window.speechRecognition || window.webkitSpeechRecognition;
 
-    // configure the speeck recognition
-    var recognition = new SpeechRecognition();
+    // configure the speech recognition
+    var recognition = new speechRecognition();
     recognition.continuous = false;
     recognition.lang = "en-US";
     recognition.interimResults = false;
@@ -44,12 +42,12 @@ class Speech extends Component {
 
       // send the transacript to server for GPT response
       axios
-        .get(`${url}/api/gpt`, query)
+        .get(`${hostname}/api/gpt`, query)
         .then((res) => {
           const { GPTResponse } = res.data;
 
+          // generate audio from GPT response transcript
           const utter = new SpeechSynthesisUtterance(GPTResponse);
-
           const synth = window.speechSynthesis;
           synth.speak(utter);
         })
