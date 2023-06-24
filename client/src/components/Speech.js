@@ -4,7 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
-const url = "http://localhost:8090";
+const url = "https://gpt-voice-assist.onrender.com";
 
 class Speech extends Component {
   constructor() {
@@ -18,7 +18,7 @@ class Speech extends Component {
 
   startListen() {
     // speech recognition on browser
-    var SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition;
+    var SpeechRecognition = window.webkitSpeechRecognition;
 
     // configure the speeck recognition
     var recognition = new SpeechRecognition();
